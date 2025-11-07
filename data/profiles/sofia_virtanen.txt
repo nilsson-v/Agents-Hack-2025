@@ -42,3 +42,9 @@ TECHNICAL SKILLS
 * Frameworks/Libraries: React, Node.js, Flask
 * Tools: Git, Docker, VS Code, PostgreSQL
 * Languages: Finnish (Native), English (Fluent)
+
+==================================================
+PREFERENCES
+==================================================
+
+* I prefer jobs in tech like software engineering or data scientist
