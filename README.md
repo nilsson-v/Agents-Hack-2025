@@ -3,6 +3,12 @@
 
 This project is a multi-agent system built with **LangGraph** and **FastAPI** that provides an API endpoint for matchmaking.  
 It receives lists of candidate profiles and job postings from a frontend, runs a full matchmaking process using AI agents, and returns a final verdict.
+The frontend was built with lovable separately and the full project can be found here:
+https://github.com/alvinekelund/Converge
+
+Link to the project pitch video:
+
+https://drive.google.com/file/d/1RDG1BaET2TGqUR8dHHvm5Yai5lCuvzUK/view?usp=sharing
 
 ---
 
