@@ -1,0 +1,21 @@
+
+NAME: Hector Bellerin
+PROFILE:
+Master's student in computyr science with experience at two startups. Completed bachelors degree in computer science with honours in 2024.
+EXPERIENCE:
+Worked at a startup as a fullstack developer with react, NodeJs.
+Worked at as a data scientist intern at another startup, gained experience in python.
+EDUCATION:
+Bachelors degree in computer science
+GPA: 4.45/5.00
+Masters degree in computer science (in progress)
+SKILLS:
+React
+NodeJS
+Typescript
+Python
+Machine Learning
+EXTRACURRICULARS:
+Varsity rugby player
+PREFERENCES:
+I prefer job in technology like software engineering 

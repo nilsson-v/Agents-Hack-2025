@@ -110,7 +110,6 @@ def run_full_matchmaking():
             final_match_list.append({
                 "posting_file": posting_file,
                 "mutual_matches": mutual_matches,
-                "verdict": verdict # Optionally include the full verdict string
             })
 
 

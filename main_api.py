@@ -74,7 +74,7 @@ def sync_live_data_to_files(postings: List[Posting], profiles: List[Profile]):
 
     # --- Write postings ---
     for p in postings:
-        filepath = os.path.join(POSTINGS_DIR, f"{p.title}_{p.ID}.txt")
+        filepath = os.path.join(POSTINGS_DIR, f"{p.title}.txt")
         content = f"""
 JOB TITLE: {p.title}
 COMPANY: {p.company}
@@ -93,7 +93,7 @@ QUALIFICATIONS:
 
     # --- Write profiles ---
     for p in profiles:
-        filepath = os.path.join(PROFILES_DIR, f"{p.Name}_{p.ID}.txt")
+        filepath = os.path.join(PROFILES_DIR, f"{p.Name}.txt")
         content = f"""
 NAME: {p.Name}
 PROFILE:

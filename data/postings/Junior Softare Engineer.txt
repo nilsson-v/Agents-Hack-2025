@@ -1,0 +1,14 @@
+
+JOB TITLE: Junior Softare Engineer
+COMPANY: Goglog
+LOCATION: New York
+ABOUT US:
+Industry leaders in big data
+JOB DESCRIPTION:
+You get to collaborate with our tech team.
+RESPONSIBILITIES:
+Write high-quality code in fullstack development.
+QUALIFICATIONS:
+Must have atleast a Bachelor's degree in a field like computer science or data science.
+Must have familiarity with React.
+Must be proficient in Python.
