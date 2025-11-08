@@ -43,6 +43,10 @@ You have two servers that can be run independently. **All commands must be run f
 This local runs the *entire* matchmaking process for **all** local `.txt` files in your `data/` folder. It's great for development and running the full system test.
 
 **To run the locally:**
-```sh
+``sh
 uv run agents/matcher_agent.py 
+
+**To run the api:**
+```sh
+uvicorn main_api:app --host 0.0.0.0 --port 8000
 
