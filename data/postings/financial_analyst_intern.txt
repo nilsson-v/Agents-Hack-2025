@@ -27,3 +27,4 @@ QUALIFICATIONS:
 PREFERRED (Nice-to-have):
 * Previous internship experience in finance or accounting.
 * Experience with SQL or a data visualization tool (Tableau, Power BI).
+* It is very important that the person has previous work experience
