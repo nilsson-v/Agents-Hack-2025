@@ -86,8 +86,11 @@ def analyzer_node(state:State):
     """
     if state["messages"][-1].content.startswith("Error:"):
         return {}
-    
+
     response = llm.invoke(state["messages"])
+
+    print(f"Suitable candidates: {response.content}")
+
     return {"messages": [response]}
 
 # --- 5. Graph Definition Function ---

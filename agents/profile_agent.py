@@ -13,21 +13,44 @@ llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
 # --- 2. State Definition ---
 class State(TypedDict):
     messages: Annotated[list, add_messages]
-    # This will be provided as input
-    target_profile_filename: str
+    
+    # --- Option 1: For batch job ---
+    target_profile_filename: str | None = None
+    
+    # --- Option 2: For on-demand API ---
+    profile_text: str | None = None
 
-# --- 3. "Tool" Function (File Reader) ---
-def get_files_for_profile_agent(target_profile_file: str) -> tuple[str, str, str]:
+
+# --- 3. Graph Nodes ---
+def scanner_node(state: State):
     """
-    Reads the main candidate profile and ALL job postings.
-    Returns (profile_text, all_postings_text, error_message)
+    Reads all necessary files from disk OR uses profile_text from state.
     """
+    print("Profile Agent: Reading profile and all job postings...")
+    
+    # This is the new flexible logic
+    profile_text = ""
+    if state.get("target_profile_filename"):
+        # Logic for batch job (your original method)
+        print(f"  Mode: File ({state['target_profile_filename']})")
+        profile_file = state["target_profile_filename"]
+        try:
+            with open(os.path.join("data/profiles", profile_file), "r") as f:
+                profile_text = f.read()
+        except FileNotFoundError as e:
+            return {"messages": [("system", f"Error: {e.filename} not found.")]}
+            
+    elif state.get("profile_text"):
+        # Logic for on-demand API
+        print("  Mode: Raw text input")
+        profile_text = state["profile_text"]
+    else:
+        return {"messages": [("system", "Error: No profile_text or target_profile_filename provided.")]}
+
+    # --- This part is the same as before ---
+    
+    # Scan and load ALL job postings
     try:
-        # Load the single profile we are acting for
-        with open(os.path.join("data/profiles", target_profile_file), "r") as f:
-            profile_text = f.read()
-
-        # Scan and load ALL job postings
         posting_files = os.listdir("data/postings")
         all_postings_text = ""
         for filename in posting_files:
@@ -36,40 +59,22 @@ def get_files_for_profile_agent(target_profile_file: str) -> tuple[str, str, str
                     all_postings_text += f"\n\n--- START OF POSTING: {filename} ---\n"
                     all_postings_text += f.read()
                     all_postings_text += f"\n--- END OF POSTING: {filename} ---"
-        
         if not all_postings_text:
-            return None, None, "Error: No .txt files found in data/postings/"
-
-        return profile_text, all_postings_text, None
-
+            return {"messages": [("system", "Error: No .txt files found in data/postings/")]}
     except FileNotFoundError as e:
-        print(f"Error: Could not find file {e.filename}")
-        return None, None, f"Error: {e.filename} not found."
-
-# --- 4. Graph Nodes ---
-def scanner_node(state: State):
-    """
-    Reads all necessary files from disk and prepares the
-    state for the analyzer.
-    """
-    profile_file = state["target_profile_filename"]
-    profile, postings, error = get_files_for_profile_agent(profile_file)
-    
-    if error:
-        return {"messages": [("system", error)]}
-
+        return {"messages": [("system", f"Error: Could not read postings directory. {e}")]}
     prompt = f"""
     You are a meticulous job-seeking agent. Your task is to find the *most relevant*
     jobs for your candidate and filter out all irrelevant ones.
 
     Here is your candidate's profile:
     ---MY PROFILE---
-    {profile}
+    {profile_text}
     ---END MY PROFILE---
 
     Here are all the available job postings:
     ---ALL POSTINGS---
-    {postings}
+    {all_postings_text}
     ---END ALL POSTINGS---
 
     Follow these steps precisely:
@@ -95,9 +100,12 @@ def analyzer_node(state:State):
         return {}
     
     response = llm.invoke(state["messages"])
+
+    print(f"Suitable postings: {response.content}")
+
     return {"messages": [response]}
 
-# --- 5. Graph Definition Function ---
+# --- 4. Graph Definition Function ---
 def get_profile_agent_graph():
     """
     Creates and returns the compiled graph for the profile agent.
