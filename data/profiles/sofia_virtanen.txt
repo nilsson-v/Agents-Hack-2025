@@ -1,0 +1,33 @@
+NAME: Sofia Virtanen
+LOCATION: Helsinki, Finland
+PROFILE:
+A second-year Computer Science student at Aalto University with a strong foundation in Python and web development. Passionate about building clean, efficient software and solving complex problems.
+EXPERIENCE:
+AI Analytics Dashboard (Python, Flask, React)
+
+A personal project to visualize financial market data.
+
+Built a Python/Flask REST API to fetch and process data.
+
+Designed a simple front-end in React with Chart.js to display interactive graphs.
+
+Managed code using Git. (Link: https://www.google.com/search?q=github.com/sofia-v/analytics-dashboard)
+
+Coursework: Algorithm Team Project (Java)
+
+Collaborated in a 3-person team to implement and benchmark several graph-based pathfinding algorithms (Dijkstra's, A*).
+
+Responsible for implementing the A* algorithm and its associated unit tests.
+EDUCATION:
+Aalto University | Espoo, Finland
+(2023 - Expected 2027)
+
+Bachelor of Science, Computer Science
+SKILLS:
+Languages: Python, Java, JavaScript, SQL, C++
+Frameworks/Libraries: React, Node.js, Flask
+Tools: Git, Docker, VS Code, PostgreSQL
+EXTRACURRICULARS:
+Active member of the Aalto Coding Club.
+PREFERENCES:
+Looking for challenging software engineering internship roles.
