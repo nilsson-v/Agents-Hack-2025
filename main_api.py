@@ -6,7 +6,7 @@ from typing import List, Optional
 from fastapi.middleware.cors import CORSMiddleware
 
 # Import your matchmaking engine
-from agents.ext_matcher_agent import run_full_matchmaking
+from agents.matcher_agent import run_full_matchmaking
 
 app = FastAPI(
     title="Full Matchmaking API",
@@ -74,7 +74,7 @@ def sync_live_data_to_files(postings: List[Posting], profiles: List[Profile]):
 
     # --- Write postings ---
     for p in postings:
-        filepath = os.path.join(POSTINGS_DIR, f"posting_{p.ID}.txt")
+        filepath = os.path.join(POSTINGS_DIR, f"{p.title}_{p.ID}.txt")
         content = f"""
 JOB TITLE: {p.title}
 COMPANY: {p.company}
@@ -93,7 +93,7 @@ QUALIFICATIONS:
 
     # --- Write profiles ---
     for p in profiles:
-        filepath = os.path.join(PROFILES_DIR, f"profile_{p.ID}.txt")
+        filepath = os.path.join(PROFILES_DIR, f"{p.Name}_{p.ID}.txt")
         content = f"""
 NAME: {p.Name}
 PROFILE:

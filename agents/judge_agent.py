@@ -83,15 +83,9 @@ def prepare_judge_prompt_node(state: State):
     {profiles_text}
     --- END CANDIDATES ---
 
-    Please provide a detailed final assessment. Follow this structure:
-    1.  **Overall Summary:** Briefly state how many candidates were analyzed.
-    2.  **Candidate Rankings:**
-        * **Rank 1 (Best Fit):** [filename of candidate]
-        * **Rank 2 (Second Best):** [filename of candidate]
-        * ...
-    3.  **Detailed Justification:** For *each* candidate, provide a 2-3 sentence
-        justification for their ranking, comparing their strengths and weaknesses
-        directly against the job requirements.
+    Please provide a final assessment.
+    You should be very precise and see if the person actually matches with the posting. Analyze the responsibilites and qualifications very thouroghly 
+    and if the person lacks more than one qualifications they are not deemed fit.
     """
     return {"messages": [("human", prompt)]}
 
