@@ -1,5 +1,4 @@
 
-````markdown
 # Matchmaking Agent API
 
 This project is a multi-agent system built with **LangGraph** and **FastAPI** that provides an API endpoint for matchmaking.  
@@ -132,9 +131,4 @@ http://127.0.0.1:8000
 
 **Matchmaking Agent API** is now ready to run and handle live AI-powered candidate-job matching.
 
-```
-
----
-
-Would you like me to format it for GitHub with a generated table of contents and consistent heading links (e.g., `[Setup Instructions](#2-setup-instructions)`)?
 ```
