@@ -82,16 +82,16 @@ def run_full_matchmaking():
             else:
                 print(f"  Warning: Profile agent for {profile_file} liked a non-existent job: {posting_file}")
 
-    # --- 5. Run Judge Agent for EACH posting ---
+    # --- 5. Run Judge Agent (Optional: Only for collecting mutual matches) ---
     print("\n--- Running Judge Agents ---")
     
-    # This will store our final JSON response
-    final_verdicts = {}
+    # Initialize the list to store only the final mutual matches
+    final_match_list = []
 
     for posting_file, data in match_database.items():
-        print(f"--- Judging: {posting_file} ---")
-        
-        # The input for the judge is the "session lists" we built
+        # --- Run the Judge Agent to get the final verdict (if needed) ---
+        # Note: We still run the judge agent, but we are primarily interested
+        # in the 'mutual_matches' we calculated before the judge runs.
         judge_input = {
             "target_posting_filename": posting_file,
             "recruiter_picks_list": data["recruiter_picks"],
@@ -100,24 +100,22 @@ def run_full_matchmaking():
 
         # Run the judge graph
         judge_state = judge_agent.invoke(judge_input)
-        verdict = judge_state["messages"][-1].content
-        
-        # Store the verdict in our return dictionary
-        final_verdicts[posting_file] = {
-            "mutual_matches": list(set(data["recruiter_picks"]) & set(data["interested_profiles"])),
-            "verdict": verdict
-        }
+        verdict = judge_state["messages"][-1].content # Keep the full verdict for completeness
+
+        # Calculate the mutual matches
+        mutual_matches = list(set(data["recruiter_picks"]) & set(data["interested_profiles"]))
+
+        # Check if there are any mutual matches before adding to the list
+        if mutual_matches:
+            final_match_list.append({
+                "posting_file": posting_file,
+                "mutual_matches": mutual_matches,
+                "verdict": verdict # Optionally include the full verdict string
+            })
+
 
     print("\n--- Matchmaking complete. ---")
     
-    # --- This is the key change ---
-    # Return the final dictionary instead of just printing
-    return final_verdicts
-
-# This allows the file to be run directly for testing,
-# but it won't run when imported by your API server.
-if __name__ == "__main__":
-    results = run_full_matchmaking()
-    print("\n--- FINAL RESULTS (JSON) ---")
-    import json
-    print(json.dumps(results, indent=2))
+    # --- RETURN THE SIMPLIFIED LIST ---
+    print(final_match_list)
+    return final_match_list

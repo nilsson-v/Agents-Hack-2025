@@ -85,7 +85,9 @@ def prepare_judge_prompt_node(state: State):
 
     Please provide a final assessment.
     You should be very precise and see if the person actually matches with the posting. Analyze the responsibilites and qualifications very thouroghly 
-    and if the person lacks more than one qualifications they are not deemed fit.
+    and if the person lacks more than one qualifications they are not deemed fit. 
+    If it is a match return YES and nothing more, strictly "YES".
+    If it is not a match return NO and nothing more, strictly "NO".
     """
     return {"messages": [("human", prompt)]}
 
@@ -134,6 +136,3 @@ def get_judge_agent_graph():
     graph_builder.add_edge("no_match", END)
 
     return graph_builder.compile()
-
-# --- 6. (REMOVED) ---
-# We no longer run the graph from this file.
