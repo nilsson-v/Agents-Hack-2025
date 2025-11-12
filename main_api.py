@@ -14,7 +14,7 @@ app = FastAPI(
 )
 
 # --- Allow frontend origins (adjust if deployed) ---
-origins = ["*"]  # You can later replace this with ["https://your-frontend-url.com"]
+origins = ["*"]  
 
 app.add_middleware(
     CORSMiddleware,
